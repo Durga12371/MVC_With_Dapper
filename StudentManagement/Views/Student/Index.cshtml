@@ -1,0 +1,79 @@
+﻿@model StudentManagement.Models.StudentVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <h1 class="text-center">@Model.CollgeDetails.University_Name</h1><br />
+    <h3 class="text-center">@Model.CollgeDetails.Address</h3>
+
+</div>
+<h1>List </h1>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<h1>Student List</h1>
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>Student Id</th>
+            <th>Student Name</th>
+            <th>Email  Address</th>
+            <th>City</th>
+            <th>Date</th>
+            <th>Delete</th>
+            
+        </tr>
+        @{
+            if(Model.StudentsList!=null && Model.StudentsList.Count>0)
+            {
+               foreach(var item in Model.StudentsList)
+               {
+                       <tr>
+                               <td>@item.StudentId</td>
+                               <td>@item.StudentName</td>
+                               <td>@item.EmailAddress</td>
+                               <td>@item.City</td>
+                               <td>@item.CreationDate.ToString("dd-MMM-yyyy")</td>
+                               <td>
+                                   <a onclick="DeleteStudentRecord('@item.StudentId')" style="cursor:pointer;">DELETE</a> &nbsp;&nbsp;&nbsp;
+                                </td>
+                               
+                                                                                           
+                       </tr>
+               }
+            }
+       }
+
+    </table>
+
+</div>
+
+<script type="text/javascript">
+    function DeleteStudentRecord(StudentId)
+    {
+        let response=confirm("Do you want to Delete this Record");
+        if (response) {
+            $.ajax({
+                type:"POST",
+                data:{StudentId:StudentId},
+                
+                success:function(response) {
+                    if (response.message == "Delete Successfully") {
+                        window.location.reload();
+                    }
+                    else
+                    {
+                        alert(response.message);
+                    }
+                },
+                complete: function(){ },
+                failure: function(jqXHR,textStatus,errorThrown)
+                {
+                    alert("Error pcured! Please try again");
+                }
+            });
+        }
+    }
+  
+</script>

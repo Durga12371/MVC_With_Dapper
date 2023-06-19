@@ -1,0 +1,53 @@
+﻿@model StudentManagement.Models.StudentVM
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" asp-area="" asp-controller="Student" asp-action="AddUpdateStudent">
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="StudentId" name="StudentId" />
+                <div class="row mb-03">
+                    <div class="col-12"><label for="StudentName">Student Name</label></div>
+                    <div class="col-12"><input type="text" class="form-control" name="StudentName" id="StudentName" placeholder="Enter Name" /> </div>
+                </div>
+                <div class="row mb-03">
+                    <div class="col-12"><label for="EmailAddress">Email Address</label></div>
+                    <div class="col-12"><input type="text" class="form-control" name="EmailAddress" id="EmailAddress" placeholder="Enter Name" /> </div>
+                </div>
+                <div class="row mb-03">
+                    <div class="col-12"><label for="City ">City </label></div>
+                    <div class="col-12"><input type="text" class="form-control" name="City" id="City" placeholder="Enter Name" /> </div>
+                </div>
+                <div class="row mb-03">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+        <div class="col-md-6">
+            @{
+                if (TempData["SuccessMsg"] != null)
+                {
+                    <h2 class="bg-success">Successfully</h2>
+                }
+                if (TempData["ErrorMsg"] != null)
+                {
+                    <h2 class="bg-danger">Error</h2>
+                }
+
+            }
+        </div>
+
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+</div>
